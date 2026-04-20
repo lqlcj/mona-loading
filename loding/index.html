@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GitHub Mona Loading</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #0d1117;
+    color: #8b949e;
+  }
+
+  .stage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .loader {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .mona {
+    width: 108px;
+    height: 108px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    animation: float 1.6s ease-in-out infinite;
+    transform-origin: center bottom;
+    z-index: 2;
+  }
+
+  .shadow {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 72px;
+    height: 10px;
+    background: radial-gradient(ellipse at center,
+                rgba(0, 0, 0, 0.55) 0%,
+                rgba(0, 0, 0, 0.25) 45%,
+                rgba(0, 0, 0, 0) 75%);
+    border-radius: 50%;
+    transform: translateX(-50%) scale(1);
+    animation: shadow 1.6s ease-in-out infinite;
+    filter: blur(1px);
+    z-index: 1;
+  }
+
+  .hint {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    animation: breathe 1.6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+
+  @keyframes shadow {
+    0%, 100% { transform: translateX(-50%) scale(1);   opacity: 0.9; }
+    50%      { transform: translateX(-50%) scale(0.7); opacity: 0.5; }
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.45; }
+    50%      { opacity: 1;    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mona, .shadow, .hint { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="stage" aria-label="加载中">
+    <div class="loader" role="status" aria-live="polite">
+      <div class="shadow" aria-hidden="true"></div>
+      <img class="mona" src="mona-loading-dark.gif" alt="GitHub Mona Loading" />
+    </div>
+    <p class="hint">稍等一会儿...</p>
+  </main>
+</body>
+</html>
